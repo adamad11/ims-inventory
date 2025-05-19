@@ -19,12 +19,7 @@ main = Blueprint('main', __name__)
 
 # --- PostgreSQL Connection ---
 def get_connection():
-    return psycopg2.connect(
-        host="localhost",
-        database="Adam_K_D_BSDS_GRP_A",  # Replace with your actual DB
-        user="postgres",
-        password="ims123"
-    )
+    return psycopg2.connect("postgresql://ims_db_bjxu_user:jLkWTPpc6KIKHDX2Q4pO44f8CVfZqW5y@dpg-d0ljm1d6ubrc73c5i1f0-a/ims_db_bjxu")
 
 # ================= ROUTES =================
 
