@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Inventory Overview</h1>
+<table>
+    <tr>
+        <th>Inventory ID</th>
+        <th>Item Description</th>
+        <th>Quantity</th>
+    </tr>
+    {% for row in inventory %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Items</h1>
+
+{% if items %}
+<table border="1">
+    <tr>
+        <th>ItemNo</th>
+        <th>Description</th>
+        <th>BarCode</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item[0] }}</td>
+        <td>{{ item[1] }}</td>
+        <td>{{ item[2] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No items found.</p>
+{% endif %}
+
+{% endblock %}
+

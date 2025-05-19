@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>📊 Dashboard Overview</h1>
+
+<!-- Layout Grid -->
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+
+    <!-- Low Stock Circle -->
+    <div style="background:white; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); text-align:center;">
+        <h3>Low Stock %</h3>
+        <canvas id="lowStockChart" width="100" height="100"></canvas>
+        <p>{{ low_stock_count }} out of {{ total_items }} items are low</p>
+    </div>
+
+    <!-- Bar Chart for Top Ordered Items -->
+    <div style="background:white; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+        <h3>Top Ordered Items</h3>
+        <canvas id="topItemsChart" height="150"></canvas>
+    </div>
+
+    <!-- Recently Completed Orders Table -->
+    <div style="grid-column: span 2; background:white; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+        <h3>Recently Completed Orders</h3>
+        <table style="width:100%;">
+            <tr>
+                <th>Order No</th>
+                <th>Date Completed</th>
+            </tr>
+            {% for order in recent_orders %}
+            <tr>
+                <td>{{ order[0] }}</td>
+                <td>{{ order[1] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Low Stock Circular Chart
+    const lowStockCtx = document.getElementById('lowStockChart');
+    new Chart(lowStockCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Low Stock', 'Healthy'],
+            datasets: [{
+                data: [{{ low_stock_count }}, {{ total_items - low_stock_count }}],
+                backgroundColor: ['#e74c3c', '#2ecc71'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            cutout: '70%',
+            plugins: {
+                legend: { display: true }
+            }
+        }
+    });
+
+    // Top Ordered Items Bar Chart
+    const topItemsCtx = document.getElementById('topItemsChart');
+    new Chart(topItemsCtx, {
+        type: 'bar',
+        data: {
+            labels: [{% for item in top_items %}'{{ item[0] }}',{% endfor %}],
+            datasets: [{
+                label: 'Orders',
+                data: [{% for item in top_items %}{{ item[1] }},{% endfor %}],
+                backgroundColor: '#3498db'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>IMS</h2>
+
+        <a href="/logout">Logout</a>  
+        <a href="/shipments">Shipments</a>
+        <a href="/procedures">Procedures</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/orders">Orders</a>
+        <a href="/items">Items</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/orders">Orders</a>
+        <a href="/shipments">Shipments</a>
+        <a href="/procedures">Procedures</a>
+    </div>
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+

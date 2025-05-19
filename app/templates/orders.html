@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>📦 Orders</h1>
+
+<table>
+    <tr>
+        <th>Order No</th>
+        <th>Date Required</th>
+        <th>Status</th>
+        <th>Shipment</th>
+        <th>Action</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order[0] }}</td>
+        <td>{{ order[1] }}</td>
+
+        <!-- ✅ Status with green/red labels -->
+        <td>
+            {% if order[2] %}
+                <span style="color: green; font-weight: bold;">✔ Completed</span>
+            {% else %}
+                <span style="color: red; font-weight: bold;">❌ Pending</span>
+            {% endif %}
+        </td>
+
+        <!-- ✅ Shipment link if available -->
+        <td>
+            {% if order[3] %}
+                <a href="/shipments#shipment-{{ order[3] }}" style="text-decoration: none; color: #2980b9;">View #{{ order[3] }}</a>
+            {% else %}
+                —
+            {% endif %}
+        </td>
+
+        <!-- ✅ Button to mark as complete -->
+        <td>
+            {% if not order[2] %}
+            <form method="POST" style="display:inline;">
+                <input type="hidden" name="order_no" value="{{ order[0] }}">
+                <button type="submit" style="padding: 6px 10px; background: #27ae60; color: white; border: none; border-radius: 5px;">
+                    Mark as Completed
+                </button>
+            </form>
+            {% else %}
+                —
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+

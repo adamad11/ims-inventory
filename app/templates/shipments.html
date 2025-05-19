@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>🚚 Shipments</h1>
+
+<!-- Add Shipment Form -->
+<div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <form method="POST">
+        <label for="shipment_date"><strong>Add New Shipment:</strong></label><br><br>
+        <input type="date" name="shipment_date" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <button type="submit" style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; margin-left: 10px;">
+            ➕ Add
+        </button>
+    </form>
+</div>
+
+<!-- Shipments Table -->
+<table>
+    <tr>
+        <th>Shipment No</th>
+        <th>Date</th>
+    </tr>
+    {% for shipment in shipments %}
+    <tr id="shipment-{{ shipment[0] }}">
+        <td>{{ shipment[0] }}</td>
+        <td>{{ shipment[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
